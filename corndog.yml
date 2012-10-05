@@ -1,0 +1,13 @@
+# ~/.tmuxinator/corndog.yml
+# you can make as many tabs as you wish...
+
+project_name: Corndog
+project_root: ~/Development/Corndog
+tabs:
+  - editor:
+      layout: main-vertical
+      panes:
+        - vim .
+  - server: rails s
+  - console: rails c
+  - test: #empty
