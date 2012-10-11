@@ -6,7 +6,7 @@ successfully() {
 }
 
 echo "Downloading and Installing OSX-GCC-Installer."
-  successfully curl -O http://cloud.github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg -o ~/Downloads
+  [[ -f ~/Downloads/GCC-10.7-v2.pkg ]] || successfully curl -O http://cloud.github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg -o ~/Downloads
   successfully sudo installer -pkg GCC-10.7-v2.pkg -target /
 
 echo "Checking for SSH key, if one doesn't exist a key will be generated."
@@ -52,31 +52,43 @@ echo "Setting MySQL to start at boot"
 
 echo "Installing RVM (Ruby Version Manager) and Ruby 1.9.3, which becomes the default ..."
   successfully curl -L https://get.rvm.io | bash -s latest-1.16 --auto
-  successfully source ~/.bash_profile
   successfully command rvm install ruby -j 3
+  successfully source ~/.bash_profile
   successfully rvm reload
 
+echo "Installing ImageMagick, good for cropping and re-sizing images ..."
+  successfully brew install imagemagick
 
+echo "Installing QT, used by Capybara Webkit for headless Javascript integration testing ..."
+  successfully brew install qt
 
+echo "Installing Git"
+  successfully brew install git
 
+echo "Installing tmux, a good way to save project state and switch between projects ..."
+  successfully brew install tmux
+  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/.tmux.conf ~/
 
+echo "Installing reattach-to-user-namespace, for copy-paste and RubyMotion compatibility with tmux ..."
+  successfully brew install reattach-to-user-namespace
 
+echo "Install Tmuxinator"
+  successfully gem install tmuxinator
+  successfully mkdir ~/.tmuxinator
+  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/corndog.yml ~/.tmuxinator/
 
-# mkdir ~/.tmuxinator
-# gem install tmuxinator
-# echo 'Checking that your system is ready for tmuxinator'
-# tmuxinator doctor
-# while true; do
-#   read -p 'Is your editor set up? (y|n)' yn
-#   case $yn in
-#     [Yy]* ) break;;
-#     [Nn]* ) echo '[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator' >> ~/.bash_profile;;
-#     * ) echo 'Please enter y or n'
-#   esac
-# done
-# echo 'Adding Alias for PairMeup'
-# echo 'alias pairme='sh ~/pair_me_up.sh'' >> ~/.bash_profile
-# cp corndog.yml ~/.tmuxinator/
-# cp .tmux.conf ~/
-# cp pair_me_up.sh ~/
+echo 'Checking that your system is ready for tmuxinator'
+  successfully tmuxinator doctor
+  while true; do
+     read -p 'Is your editor set up? (y|n)' yn
+     case $yn in
+       [Yy]* ) break;;
+       [Nn]* ) echo '[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator' >> ~/.bash_profile;;
+       * ) echo 'Please enter y or n'
+     esac
+  done
+echo 'Adding Alias for PairMeup'
+  successfully echo 'alias pairme='sh ~/pair_me_up.sh'' >> ~/.bash_profile
+
 echo 'Your pairing environment should be configured. Launching PairMeUp! (You need to source .bash_profile)'
+  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/pair_me_up.sh ~/
