@@ -6,7 +6,7 @@ successfully() {
 }
 
 echo "Downloading and Installing OSX-GCC-Installer."
-  successfully curl -O http://cloud.github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg ~/Downloads
+  successfully curl -O http://cloud.github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg -o ~/Downloads
   successfully sudo installer -pkg GCC-10.7-v2.pkg -target /
 
 echo "Checking for SSH key, if one doesn't exist a key will be generated."
