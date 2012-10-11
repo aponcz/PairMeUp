@@ -65,6 +65,9 @@ echo "Installing QT, used by Capybara Webkit for headless Javascript integration
 echo "Installing Git"
   successfully brew install git
 
+echo "Installing Vim"
+  successfully brew install vim
+
 echo "Installing tmux, a good way to save project state and switch between projects ..."
   successfully brew install tmux
   successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/.tmux.conf ~/
@@ -92,3 +95,4 @@ echo 'Adding Alias for PairMeup'
 
 echo 'Your pairing environment should be configured. Launching PairMeUp! (You need to source .bash_profile)'
   successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/pair_me_up.sh ~/
+  successfully source ~/.bash_profile
