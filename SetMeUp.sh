@@ -52,9 +52,9 @@ echo "Setting MySQL to start at boot"
 
 echo "Installing RVM (Ruby Version Manager) and Ruby 1.9.3, which becomes the default ..."
   successfully curl -L https://get.rvm.io | bash -s latest-1.16 --auto
-  successfully command rvm install ruby -j 3
   successfully source ~/.bash_profile
-  successfully rvm reload
+  successfully command rvm install ruby -j 3
+  successfully command rvm reload
 
 echo "Installing ImageMagick, good for cropping and re-sizing images ..."
   successfully brew install imagemagick
@@ -67,10 +67,11 @@ echo "Installing Git"
 
 echo "Installing Vim"
   successfully brew install vim
+  successfully echo "$EDITOR = '/usr/local/bin/vim'" >> ~/.bash_profile
 
 echo "Installing tmux, a good way to save project state and switch between projects ..."
   successfully brew install tmux
-  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/.tmux.conf ~/
+  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/.tmux.conf -o ~/
 
 echo "Installing reattach-to-user-namespace, for copy-paste and RubyMotion compatibility with tmux ..."
   successfully brew install reattach-to-user-namespace
@@ -78,18 +79,12 @@ echo "Installing reattach-to-user-namespace, for copy-paste and RubyMotion compa
 echo "Install Tmuxinator"
   successfully gem install tmuxinator
   successfully mkdir ~/.tmuxinator
-  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/corndog.yml ~/.tmuxinator/
+  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/corndog.yml -o ~/.tmuxinator/
 
 echo 'Checking that your system is ready for tmuxinator'
   successfully tmuxinator doctor
-  while true; do
-     read -p 'Is your editor set up? (y|n)' yn
-     case $yn in
-       [Yy]* ) break;;
-       [Nn]* ) echo '[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator' >> ~/.bash_profile;;
-       * ) echo 'Please enter y or n'
-     esac
-  done
+  successfully echo '[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator' >> ~/.bash_profile
+
 echo 'Adding Alias for PairMeup'
   successfully echo 'alias pairme='sh ~/pair_me_up.sh'' >> ~/.bash_profile
 

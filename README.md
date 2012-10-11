@@ -1,16 +1,16 @@
 PairMeUp
 ========
+Install
+-------
+
+Run the script:
+
+    bash < <(curl -s https://raw.github.com/thoughtbot/laptop/master/mac)
 
 Remote Pairing script and essential files
 
 This will set up your machine for remote pairing.
 
-First you will need to install tmux
-(brew install tmux | sudo apt-get install tmux)
-
-Then run ./SetMeUp
-
-Source your .bash_profile
 
 Then run the pairme and specify the ip to connect to and the username of the person that you wish to connect to.
 
