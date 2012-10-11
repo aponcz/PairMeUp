@@ -22,10 +22,6 @@ echo "Copying public key to clipboard. Add this to your github account. You can 
   [[ -f ~/.ssh/id_rsa.pub ]] && cat ~/.ssh/id_rsa.pub | pbcopy
   successfully open https://github.com/account/ssh
 
-echo "Fixing permissions on /usr/local."
-  successfully mkdir /usr/local
-  successfully sudo chown -R `whoami` /usr/local
-
 echo "Installing Homebrew and updating Formulas."
   successfully ruby <(curl -fsS https://raw.github.com/mxcl/homebrew/go)
   successfully brew update
@@ -72,9 +68,13 @@ echo "Installing QT, used by Capybara Webkit for headless Javascript integration
 echo "Installing Git"
   successfully brew install git
 
-echo "Installing Vim"
-  successfully brew install vim
-  successfully echo "$EDITOR = '/usr/bin/vim'" >> ~/.bash_profile
+echo "Homebrew is installing ack, ctags-exuberant, macvim, markdown, proctools and wget"
+for app in ack ctags-exuberant macvim markdown proctools wget; do
+  brew list $app > /dev/null
+  if [[ "$?" -eq "1" ]]; then
+    brew install $app
+  fi
+done
 
 echo "Installing tmux, a good way to save project state and switch between projects ..."
   successfully brew install tmux
@@ -84,6 +84,7 @@ echo "Installing reattach-to-user-namespace, for copy-paste and RubyMotion compa
   successfully brew install reattach-to-user-namespace
 
 echo "Install Tmuxinator"
+  successfully rvm use 1.9.3 --default
   successfully gem install tmuxinator
   successfully mkdir ~/.tmuxinator
   successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/corndog.yml -o ~/.tmuxinator/
@@ -93,9 +94,8 @@ echo 'Checking that your system is ready for tmuxinator'
   successfully echo '[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator' >> ~/.bash_profile
 
 echo 'Adding Alias for PairMeup'
-  successfully echo 'alias pairme='. ~/pair_me_up.sh'' >> ~/.bash_profile
+  successfully echo "alias pairme='. ~/pair_me_up.sh'" >> ~/.bash_profile
 
 echo 'Your pairing environment should be configured. Launching PairMeUp! (You need to source .bash_profile)'
   successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/pair_me_up.sh -o ~/
-  successfully command rvm use 1.9.3 --default
   successfully source ~/.bash_profile
