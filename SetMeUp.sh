@@ -23,6 +23,7 @@ echo "Copying public key to clipboard. Add this to your github account. You can 
   successfully open https://github.com/account/ssh
 
 echo "Fixing permissions on /usr/local."
+  successfully mkdir /usr/local
   successfully sudo chown -R `whoami` /usr/local
 
 echo "Installing Homebrew and updating Formulas."
