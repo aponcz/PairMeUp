@@ -54,8 +54,8 @@ echo "Installing RVM (Ruby Version Manager) and Ruby 1.9.3, which becomes the de
   successfully curl -L https://get.rvm.io | bash -s latest-1.16 --auto
   successfully source ~/.bash_profile
   successfully command rvm install ruby -j 3
-  successfully command rvm use 1.9.3 --default
   successfully command rvm reload
+  successfully command rvm use 1.9.3 --default
 
 echo "Installing ImageMagick, good for cropping and re-sizing images ..."
   successfully brew install imagemagick
