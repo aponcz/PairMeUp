@@ -21,7 +21,7 @@ echo "Installing Homebrew and updating Formulas."
 
 echo "Putting Homebrew location higher up in PATH."
   successfully echo "export PATH='/usr/local/bin:$PATH'" >> ~/.bash_profile
-  successfully echo source ~/.bash_profile
+  successfully source ~/.bash_profile
 
 echo "Installing GNU compiler and dependencies."
   successfully brew tap homebrew/dupes
@@ -47,12 +47,10 @@ echo "Setting MySQL to start at boot"
   successfully launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
 
 echo "Installing RVM (Ruby Version Manager) and Ruby 1.9.3, which becomes the default ..."
-  successfully curl -L https://get.rvm.io | bash -s -- --version 1.15.10 --ruby
-  successfully q
-  successfully echo "
-# RVM
-[[ -s '/Users/`whoami`/.rvm/scripts/rvm' ]] && source '/Users/`whoami`/.rvm/scripts/rvm'" >> ~/.bash_profile
+  successfully curl -L https://get.rvm.io | bash -s latest-1.15 --auto
   successfully source ~/.bash_profile
+  successfully command rvm install ruby -j 3
+  sucessfully rvm reload
 
 
 
