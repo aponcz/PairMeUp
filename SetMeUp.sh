@@ -61,7 +61,6 @@ echo "Installing RVM (Ruby Version Manager) and Ruby 1.9.3, which becomes the de
   successfully source ~/.bash_profile
   successfully command rvm install ruby -j 3
   successfully command rvm reload
-  successfully command rvm use 1.9.3 --default
 
 echo "Installing ImageMagick, good for cropping and re-sizing images ..."
   successfully brew install imagemagick
@@ -69,8 +68,8 @@ echo "Installing ImageMagick, good for cropping and re-sizing images ..."
 echo "Installing QT, used by Capybara Webkit for headless Javascript integration testing ..."
   successfully brew install qt
 
-# echo "Installing Git"
-#   successfully brew install git
+echo "Installing Git"
+  successfully brew install git
 
 echo "Installing Vim"
   successfully brew install vim
@@ -97,4 +96,5 @@ echo 'Adding Alias for PairMeup'
 
 echo 'Your pairing environment should be configured. Launching PairMeUp! (You need to source .bash_profile)'
   successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/pair_me_up.sh -o ~/
+  successfully command rvm use 1.9.3 --default
   successfully source ~/.bash_profile
