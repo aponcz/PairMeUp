@@ -86,7 +86,7 @@ echo 'Checking that your system is ready for tmuxinator'
   successfully echo '[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator' >> ~/.bash_profile
 
 echo 'Adding Alias for PairMeup'
-  successfully echo 'alias pairme='sh ~/pair_me_up.sh'' >> ~/.bash_profile
+  successfully echo 'alias pairme='. ~/pair_me_up.sh'' >> ~/.bash_profile
 
 echo 'Your pairing environment should be configured. Launching PairMeUp! (You need to source .bash_profile)'
   successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/pair_me_up.sh -o ~/
