@@ -32,12 +32,23 @@ echo "Installing licksba, this is recommeded for Ruby 1.9.3."
 
 echo "Installing MongoDB 2.2 and adding it to Startup."
   successfully brew install mongodb
+  successfully ln -s /usr/local/opt/mongodb/*.plist ~/Library/homebrew.mxcl.mongodb.plist
+  successfully launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
 
 echo "Installing MySQL and adding it to Startup."
   successfully brew install mysql
 
+echo "Setting MySQL temp databases and run as YOUR User Account"
+  successfully unset TMPDIR
+  successfully mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+
+echo "Setting MySQL to start at boot"
+  successfully cp /usr/local/Cellar/mysql/5.5.27/homebrew.mxcl.mysql.plist ~/Library/LaunchAgents/
+  successfully launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+
 echo "Installing RVM (Ruby Version Manager) and Ruby 1.9.3, which becomes the default ..."
   successfully curl -L https://get.rvm.io | bash -s -- --version 1.15.10 --ruby
+  successfully q
   successfully echo "
 # RVM
 [[ -s '/Users/`whoami`/.rvm/scripts/rvm' ]] && source '/Users/`whoami`/.rvm/scripts/rvm'" >> ~/.bash_profile
