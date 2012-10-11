@@ -5,7 +5,7 @@ Install
 
 Run the script:
 
-    bash < <(curl -s https://raw.github.com/thoughtbot/laptop/master/mac)
+    bash < <(curl -s https://raw.github.com/esparkman/PairMeUp/master/SetMeUp.sh)
 
 Remote Pairing script and essential files
 
