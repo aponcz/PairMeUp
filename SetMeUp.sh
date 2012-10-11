@@ -7,9 +7,7 @@ elif
   [ -f "/usr/bin/gcc" ]; then
   echo "Xcode 4.3+ detected."
 else
-  read -p "Please install Xcode or Command Line Tools and re-run this script"
-  read -p "http://developer.apple.com/downloads/"
-  read -p "You will need a *free Apple ID"
+  echo "Please install Xcode or Command Line Tools and re-run this script. http://developer.apple.com/downloads/. You will need a *free Apple ID"
   exit 0
 fi
 
