@@ -1,13 +1,21 @@
 #!/bin/bash
 echo 'Setting up your machine...'
 
+if [ -f "/Developer/Library/uninstall-tools" ]; then
+  echo -p "Xcode pre-4.3 detected."
+elif
+  [ -f "/usr/bin/gcc" ]; then
+  echo "Xcode 4.3+ detected."
+else
+  read -p "Please install Xcode or Command Line Tools and re-run this script"
+  read -p "http://developer.apple.com/downloads/"
+  read -p "You will need a *free Apple ID"
+  exit 0
+fi
+
 successfully() {
   $* || (echo "failed" 1>&2 && exit 1)
 }
-
-echo "Downloading and Installing OSX-GCC-Installer."
-  [[ -f ~/Downloads/GCC-10.7-v2.pkg ]] || successfully curl -O http://cloud.github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg -o ~/Downloads
-  successfully sudo installer -pkg GCC-10.7-v2.pkg -target /
 
 echo "Checking for SSH key, if one doesn't exist a key will be generated."
   [[ -f ~/.ssh/id_rsa.pub ]] || ssh-keygen -t rsa
