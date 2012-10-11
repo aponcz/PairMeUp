@@ -5,6 +5,10 @@ successfully() {
   $* || (echo "failed" 1>&2 && exit 1)
 }
 
+echo "Downloading and Installing OSX-GCC-Installer."
+  successfully curl -O http://cloud.github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg ~/Downloads
+  successfully sudo installer -pkg GCC-10.7-v2.pkg -target /
+
 echo "Checking for SSH key, if one doesn't exist a key will be generated."
   [[ -f ~/.ssh/id_rsa.pub ]] || ssh-keygen -t rsa
 
@@ -13,7 +17,7 @@ echo "Copying public key to clipboard. Add this to your github account. You can 
   successfully open https://github.com/account/ssh
 
 echo "Fixing permissions on /usr/local."
-  successully sudo chown -R `whoami` /usr/local
+  successfully sudo chown -R `whoami` /usr/local
 
 echo "Installing Homebrew and updating Formulas."
   successfully ruby <(curl -fsS https://raw.github.com/mxcl/homebrew/go)
@@ -47,10 +51,10 @@ echo "Setting MySQL to start at boot"
   successfully launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
 
 echo "Installing RVM (Ruby Version Manager) and Ruby 1.9.3, which becomes the default ..."
-  successfully curl -L https://get.rvm.io | bash -s latest-1.15 --auto
+  successfully curl -L https://get.rvm.io | bash -s latest-1.16 --auto
   successfully source ~/.bash_profile
   successfully command rvm install ruby -j 3
-  sucessfully rvm reload
+  successfully rvm reload
 
 
 
