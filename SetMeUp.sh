@@ -6,7 +6,7 @@ successfully() {
 }
 
 echo "Downloading and Installing OSX-GCC-Installer."
-  successfully curl -O http://cloud.github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg ~/Downloads
+  successfully curl -O http://cloud.github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg -o ~/Downloads
   successfully sudo installer -pkg GCC-10.7-v2.pkg -target /
 
 echo "Checking for SSH key, if one doesn't exist a key will be generated."
@@ -36,7 +36,7 @@ echo "Installing licksba, this is recommeded for Ruby 1.9.3."
 
 echo "Installing MongoDB 2.2 and adding it to Startup."
   successfully brew install mongodb
-  successfully ln -s /usr/local/opt/mongodb/*.plist ~/Library/homebrew.mxcl.mongodb.plist
+  successfully ln -s /usr/local/opt/mongodb/*.plist ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
   successfully launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
 
 echo "Installing MySQL and adding it to Startup."
