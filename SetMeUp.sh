@@ -62,12 +62,12 @@ echo "Installing ImageMagick, good for cropping and re-sizing images ..."
 echo "Installing QT, used by Capybara Webkit for headless Javascript integration testing ..."
   successfully brew install qt
 
-echo "Installing Git"
-  successfully brew install git
+# echo "Installing Git"
+#   successfully brew install git
 
 echo "Installing Vim"
   successfully brew install vim
-  successfully echo "$EDITOR = '/usr/local/bin/vim'" >> ~/.bash_profile
+  successfully echo "$EDITOR = '/usr/bin/vim'" >> ~/.bash_profile
 
 echo "Installing tmux, a good way to save project state and switch between projects ..."
   successfully brew install tmux
@@ -89,5 +89,5 @@ echo 'Adding Alias for PairMeup'
   successfully echo 'alias pairme='sh ~/pair_me_up.sh'' >> ~/.bash_profile
 
 echo 'Your pairing environment should be configured. Launching PairMeUp! (You need to source .bash_profile)'
-  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/pair_me_up.sh ~/
+  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/pair_me_up.sh -o ~/
   successfully source ~/.bash_profile
