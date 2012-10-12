@@ -16,11 +16,15 @@ successfully() {
 }
 
 echo "Checking for SSH key, if one doesn't exist a key will be generated."
-  [[ -f ~/.ssh/id_rsa.pub ]] || ssh-keygen -t rsa
+  if [ ! -f "$HOME/.ssh/id_rsa.pub" ]; then
+    echo "Please enter your email: "
+    read email
+    ssh-keygen -t rsa -C "$email"
+    cat $HOME/.ssh/id_rsa.pub
+    cat $HOME/.ssh/id_rsa.pub | pbcopy
+    read -p "Your public ssh key is in your pasteboard. Add it to github.com and hit Return"
+  fi
 
-echo "Copying public key to clipboard. Add this to your github account. You can also provide this to your pair for remote pairing purposes."
-  [[ -f ~/.ssh/id_rsa.pub ]] && cat ~/.ssh/id_rsa.pub | pbcopy
-  successfully open https://github.com/account/ssh
 
 echo "Installing Homebrew and updating Formulas."
   successfully ruby <(curl -fsS https://raw.github.com/mxcl/homebrew/go)
