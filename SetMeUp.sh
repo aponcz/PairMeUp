@@ -82,7 +82,7 @@ done
 
 echo "Installing tmux, a good way to save project state and switch between projects ..."
   successfully brew install tmux
-  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/.tmux.conf -o ~/
+  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/.tmux.conf -o ~/.tmux.conf
 
 echo "Installing reattach-to-user-namespace, for copy-paste and RubyMotion compatibility with tmux ..."
   successfully brew install reattach-to-user-namespace
@@ -91,7 +91,8 @@ echo "Install Tmuxinator"
   successfully rvm use 1.9.3 --default
   successfully gem install tmuxinator
   successfully mkdir ~/.tmuxinator
-  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/corndog.yml -o ~/.tmuxinator/
+  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/corndog.yml -o ~/.tmuxinator/corndog.yml
+  successfully echo 'export EDITOR = /usr/bin/vim' >> ~/.bash_profile
 
 echo 'Checking that your system is ready for tmuxinator'
   successfully tmuxinator doctor
@@ -101,5 +102,5 @@ echo 'Adding Alias for PairMeup'
   successfully echo "alias pairme='. ~/pair_me_up.sh'" >> ~/.bash_profile
 
 echo 'Your pairing environment should be configured. Launching PairMeUp! (You need to source .bash_profile)'
-  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/pair_me_up.sh -o ~/
+  successfully curl -s https://raw.github.com/esparkman/PairMeUp/master/pair_me_up.sh -o ~/pair_me_up.sh
   successfully source ~/.bash_profile
