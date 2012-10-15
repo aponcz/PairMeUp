@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env sh
+
 echo 'Setting up your machine...'
 
 if [ -f "/Developer/Library/uninstall-tools" ]; then
