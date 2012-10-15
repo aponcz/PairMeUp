@@ -23,7 +23,7 @@ echo "Checking for SSH key, if one doesn't exist a key will be generated."
     ssh-keygen -t rsa -C "$email"
     cat $HOME/.ssh/id_rsa.pub
     cat $HOME/.ssh/id_rsa.pub | pbcopy
-    read -p "Your public ssh key is in your pasteboard. Add it to github.com and hit Return"
+    echo "Your public ssh key is in your pasteboard. Add it to github.com and hit Return"
   fi
 
 
