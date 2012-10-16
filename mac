@@ -5,11 +5,14 @@ successfully() {
 }
 
 echo "Checking for SSH key, generating one if it doesn't exist ..."
-  [[ -f ~/.ssh/id_rsa.pub ]] || ssh-keygen -t rsa
-
-echo "Copying public key to clipboard. Paste it into your Github account ..."
-  [[ -f ~/.ssh/id_rsa.pub ]] && cat ~/.ssh/id_rsa.pub | pbcopy
-  successfully open https://github.com/account/ssh
+  if [ ! -f "$HOME/.ssh/id_rsa.pub" ]; then
+    echo "Please enter your email: "
+    read email
+    ssh-keygen -t rsa -C "$email"
+    cat $HOME/.ssh/id_rsa.pub
+    cat $HOME/.ssh/id_rsa.pub | pbcopy
+    read -p "Your public ssh key is in your pasteboard. Add it to github.com and hit Return"
+  fi
 
 echo "Installing Homebrew, a good OS X package manager ..."
   successfully ruby <(curl -fsS https://raw.github.com/mxcl/homebrew/go)
@@ -84,7 +87,7 @@ echo "Install Tmuxinator"
    gem install tmuxinator
    mkdir ~/.tmuxinator
    curl -s https://raw.github.com/esparkman/PairMeUp/master/corndog.yml -o ~/.tmuxinator/corndog.yml
-   echo 'export EDITOR= /usr/bin/vim' >> ~/.bash_profile
+   echo "export EDITOR='/usr/bin/vim'" >> ~/.bash_profile
 
 echo 'Checking that your system is ready for tmuxinator'
    tmuxinator doctor
@@ -105,13 +108,13 @@ echo 'Adding Alias for PairMeup'
 echo 'Cloning Corndog'
   successfully mkdir ~/Projects
   successfully cd ~/Projects
-  successfully git clone https://github.com/CDEI/Corndog.git
+  successfully git clone git@github.com:CDEI/Corndog.git
   successfully cd Corndog
   successfully bundle install && cd
 
 echo 'Cloning cde-etl'
   successfully cd ~/Projects
-  successfully git clone https://github.com/CDEI/cde-etl.git
+  successfully git clone git@github.com:CDEI/cde-etl.git
   successfully cd cde-etl
   successfully bundle install && cd
 
