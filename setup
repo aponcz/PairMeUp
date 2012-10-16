@@ -2,14 +2,6 @@
 
 echo 'Setting up your machine...'
 
-OSX_VERSION=$(sw_vers | grep ProductVersion | awk -F: '{print $2}')
-
-if [[ $OSX_VERSION =~ "10.8*" ]]; then
-  echo "You're not running OS X 10.8 (Mountain Lion)"
-  read -p "This script is meant to be run on Mountain Lion!"
-  exit 0
-fi
-
 if [ -f "/Developer/Library/uninstall-tools" ]; then
   echo -p "Xcode pre-4.3 detected."
 elif
