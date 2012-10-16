@@ -23,4 +23,4 @@ fi
 echo 'Cloning mac script and setting correct permissions'
   curl -s https://raw.github.com/esparkman/PairMeUp/master/mac -o /tmp/mac_install
   chmod 0700 /tmp/mac_install
-  . /tmp/install
+  . /tmp/mac_install
