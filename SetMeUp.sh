@@ -13,15 +13,15 @@ else
 fi
 
 
-echo "Checking for SSH key, if one doesn't exist a key will be generated."
-  if [ ! -f "$HOME/.ssh/id_rsa.pub" ]; then
-    echo "Please enter your email: "
-    read email
-    ssh-keygen -t rsa -C "$email"
-    cat $HOME/.ssh/id_rsa.pub
-    cat $HOME/.ssh/id_rsa.pub | pbcopy
-    echo "Your public ssh key is in your pasteboard. Add it to github.com and hit Return"
-  fi
+if [ ! -f "$HOME/.ssh/id_rsa.pub" ]; then
+  echo "Checking for SSH key, if one doesn't exist a key will be generated."
+  echo "Please enter your email: "
+  read email
+  ssh-keygen -t rsa -C "$email"
+  cat $HOME/.ssh/id_rsa.pub
+  cat $HOME/.ssh/id_rsa.pub | pbcopy
+  echo "Your public ssh key is in your pasteboard. Add it to github.com and hit Return"
+fi
 
 
 echo "Installing Homebrew and updating Formulas."
