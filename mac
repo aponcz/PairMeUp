@@ -1,18 +1,19 @@
 #!/usr/bin/env sh
 
+echo "Checking for SSH key, generating one if it doesn't exist ..."
+if [ ! -f "$HOME/.ssh/id_rsa.pub" ]; then
+  echo "Please enter your email: "
+  read email
+  ssh-keygen -t rsa -C "$email"
+  cat $HOME/.ssh/id_rsa.pub
+  cat $HOME/.ssh/id_rsa.pub | pbcopy
+  read -p "Your public ssh key is in your pasteboard. Add it to github.com and hit Return"
+fi
+
 successfully() {
   $* || (echo "failed" 1>&2 && exit 1)
 }
 
-echo "Checking for SSH key, generating one if it doesn't exist ..."
-  if [ ! -f "$HOME/.ssh/id_rsa.pub" ]; then
-    echo "Please enter your email: "
-    read email
-    ssh-keygen -t rsa -C "$email"
-    cat $HOME/.ssh/id_rsa.pub
-    cat $HOME/.ssh/id_rsa.pub | pbcopy
-    read -p "Your public ssh key is in your pasteboard. Add it to github.com and hit Return"
-  fi
 
 echo "Installing Homebrew, a good OS X package manager ..."
   successfully ruby <(curl -fsS https://raw.github.com/mxcl/homebrew/go)
