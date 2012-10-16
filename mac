@@ -6,9 +6,9 @@ OSX_VERSION=$(sw_vers | grep ProductVersion | awk -F: '{print $2}')
 JAVA_FOR_LION_URL=http://support.apple.com/downloads/DL1421/en_US/JavaForMacOSX10.7.dmg
 JAVA_PACKAGE=$(pkgutil --pkgs=com.apple.pkg.JavaForMacOSX107)
 
-if [[ $OSX_VERSION =~ "10.7*" ]]; then
-  echo "You're not running OS X 10.7 (Lion)"
-  read -p "This script is meant to be run on Lion!"
+if [[ $OSX_VERSION =~ "10.8*" ]]; then
+  echo "You're not running OS X 10.8 (Mountain Lion)"
+  read -p "This script is meant to be run on Mountain Lion!"
   exit 0
 fi
 
@@ -32,24 +32,64 @@ else
   echo 'java already installed'
 fi
 
-if [ ! -f "$HOME/.ssh/id_rsa.pub" ]; then
-  echo "Please enter your email: "
-  read email
-  ssh-keygen -t rsa -C "$email"
-  cat $HOME/.ssh/id_rsa.pub
-  cat $HOME/.ssh/id_rsa.pub | pbcopy
-  read -p "Your public ssh key is in your pasteboard. Add it to github.com and hit Return"
-fi
+successfully() {
+  $* || (echo "failed" 1>&2 && exit 1)
+}
 
-if ! command -v brew > /dev/null; then
-  echo "Installing homebrew"
-  sudo mkdir /usr/local > /dev/null
-  sudo chown -R `whoami` /usr/local
-  ruby <(curl -fsS https://raw.github.com/mxcl/homebrew/go)
-  brew update
-  # curl -L https://github.com/mxcl/homebrew/tarball/master | tar xz --strip 1 -C /usr/local
-fi
+echo "Checking for SSH key, generating one if it doesn't exist ..."
+  [[ -f ~/.ssh/id_rsa.pub ]] || ssh-keygen -t rsa
 
+echo "Copying public key to clipboard. Paste it into your Github account ..."
+  [[ -f ~/.ssh/id_rsa.pub ]] && cat ~/.ssh/id_rsa.pub | pbcopy
+  successfully open https://github.com/account/ssh
+
+echo "Fixing permissions ..."
+  successfully sudo chown -R `whoami` /usr/local
+
+echo "Installing Homebrew, a good OS X package manager ..."
+  successfully ruby <(curl -fsS https://raw.github.com/mxcl/homebrew/go)
+  successfully brew update
+
+echo "Putting Homebrew location earlier in PATH ..."
+  successfully echo "
+# recommended by brew doctor
+export PATH='/usr/local/bin:$PATH'" >> ~/.zshenv
+  successfully source ~/.zshenv
+
+echo "Installing GNU Compiler Collection and dependencies ..."
+  successfully brew tap homebrew/dupes
+  successfully brew install autoconf automake apple-gcc42
+
+echo "Installing libksba, recommended for Ruby 1.9.3 ..."
+  successfully brew install libksba
+
+echo "Installing Postgres, a good open source relational database ..."
+  successfully brew install postgres --no-python
+
+echo "Installing ack, a good way to search through files ..."
+  successfully brew install ack
+
+echo "Installing tmux, a good way to save project state and switch between projects ..."
+  successfully brew install tmux
+
+echo "Installing reattach-to-user-namespace, for copy-paste and RubyMotion compatibility with tmux ..."
+  successfully brew install reattach-to-user-namespace
+
+echo "Installing ImageMagick, good for cropping and re-sizing images ..."
+  successfully brew install imagemagick
+
+echo "Installing QT, used by Capybara Webkit for headless Javascript integration testing ..."
+  successfully brew install qt
+
+echo "Installing RVM (Ruby Version Manager) and Ruby 1.9.3, which becomes the default ..."
+  successfully curl -L https://get.rvm.io | bash -s -- --version 1.15.10 --ruby
+  successfully echo "
+# RVM
+[[ -s '/Users/`whoami`/.rvm/scripts/rvm' ]] && source '/Users/`whoami`/.rvm/scripts/rvm'" >> ~/.zshenv
+  successfully source ~/.zshenv
+
+echo "Installing critical Ruby gems for Rails development ..."
+  successfully gem install bundler rails heroku pg foreman thin --no-rdoc --no-ri
 # echo "Installing Homebrew and updating Formulas."
 #    ruby <(curl -fsS https://raw.github.com/mxcl/homebrew/go)
 #    brew update
