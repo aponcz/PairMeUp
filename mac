@@ -79,7 +79,7 @@ echo "Install Tmuxinator"
    gem install tmuxinator
    mkdir ~/.tmuxinator
    curl -s https://raw.github.com/esparkman/PairMeUp/master/corndog.yml -o ~/.tmuxinator/corndog.yml
-   echo 'export EDITOR = /usr/bin/vim' >> ~/.bash_profile
+   echo 'export EDITOR= /usr/bin/vim' >> ~/.bash_profile
 
 echo 'Checking that your system is ready for tmuxinator'
    tmuxinator doctor
