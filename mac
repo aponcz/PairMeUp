@@ -1,37 +1,5 @@
 #!/usr/bin/env sh
 
-echo 'Setting up your machine...'
-
-OSX_VERSION=$(sw_vers | grep ProductVersion | awk -F: '{print $2}')
-JAVA_FOR_LION_URL=http://support.apple.com/downloads/DL1421/en_US/JavaForMacOSX10.7.dmg
-JAVA_PACKAGE=$(pkgutil --pkgs=com.apple.pkg.JavaForMacOSX107)
-
-if [[ $OSX_VERSION =~ "10.8*" ]]; then
-  echo "You're not running OS X 10.8 (Mountain Lion)"
-  read -p "This script is meant to be run on Mountain Lion!"
-  exit 0
-fi
-
-if [ -f "/Developer/Library/uninstall-tools" ]; then
-  echo -p "Xcode pre-4.3 detected."
-elif
-  [ -f "/usr/bin/gcc" ]; then
-  echo "Xcode 4.3+ detected."
-else
-  read -p "Please install Xcode and re-run this script"
-  exit 0
-fi
-
-if [[ $JAVA_PACKAGE != "com.apple.pkg.JavaForMacOSX107" && $OSX_VERSION =~ "10.7*" ]]; then
-  echo 'Installing java, believe it or not!'
-  curl -L $JAVA_FOR_LION_URL -o /tmp/java.dmg
-  sudo hdid /tmp/java.dmg
-  sudo installer -pkg "/Volumes/Java for Mac OS X 10.7/JavaForMacOSX10.7.pkg" -target /
-  sudo hdiutil detach "/Volumes/Java for Mac OS X 10.7"
-else
-  echo 'java already installed'
-fi
-
 successfully() {
   $* || (echo "failed" 1>&2 && exit 1)
 }
