@@ -8,7 +8,7 @@ elif
   [ -f "/usr/bin/gcc" ]; then
   echo "Xcode 4.3+ detected."
 else
-  read -p "Please install Xcode and re-run this script"
+  echo "Please install Xcode and re-run this script"
   exit 0
 fi
 
