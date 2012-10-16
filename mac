@@ -36,28 +36,31 @@ echo "Installing MongoDB 2.2 and adding it to Startup."
    ln -s /usr/local/opt/mongodb/*.plist ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
    launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mongodb.plist
 
+echo "Installing Redis"
+  brew install redis
+
 echo "Installing MySQL and adding it to Startup."
-   brew install mysql
+  brew install mysql
 
 echo "Setting MySQL temp databases and run as YOUR User Account"
-   unset TMPDIR
-   mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+  unset TMPDIR
+  mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
 
 echo "Setting MySQL to start at boot"
-   cp /usr/local/Cellar/mysql/5.5.27/homebrew.mxcl.mysql.plist ~/Library/LaunchAgents/
-   launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+  cp /usr/local/Cellar/mysql/5.5.27/homebrew.mxcl.mysql.plist ~/Library/LaunchAgents/
+  launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
 
 echo "Installing RVM (Ruby Version Manager) and Ruby 1.9.3, which becomes the default ..."
-   curl -L https://get.rvm.io | bash -s latest-1.16 --auto
-   source ~/.bash_profile
-   command rvm install ruby -j 3
-   command rvm reload
+  curl -L https://get.rvm.io | bash -s latest-1.16 --auto
+  source ~/.bash_profile
+  command rvm install ruby -j 3
+  command rvm reload
 
 echo "Installing Postgres, a good open source relational database ..."
   successfully brew install postgres --no-python
 
 echo "Installing Git"
-   brew install git
+  brew install git
 
 echo "Homebrew is installing ack, ctags-exuberant, macvim, markdown, proctools and wget"
 for app in ack ctags-exuberant macvim markdown proctools wget; do
@@ -85,13 +88,6 @@ echo 'Checking that your system is ready for tmuxinator'
    tmuxinator doctor
    echo '[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator' >> ~/.bash_profile
 
-echo 'Adding Alias for PairMeup'
-   echo "alias pairme='. ~/pair_me_up.sh'" >> ~/.bash_profile
-
-echo 'Your pairing environment should be configured. Launching PairMeUp! (You need to source .bash_profile)'
-   curl -s https://raw.github.com/esparkman/PairMeUp/master/pair_me_up.sh -o ~/pair_me_up.sh
-   source ~/.bash_profile
-
 echo "Installing ImageMagick, good for cropping and re-sizing images ..."
   successfully brew install imagemagick
 
@@ -99,4 +95,25 @@ echo "Installing QT, used by Capybara Webkit for headless Javascript integration
   successfully brew install qt
 
 echo "Installing critical Ruby gems for Rails development ..."
-  successfully gem install bundler rails heroku pg foreman thin --no-rdoc --no-ri
+  successfully gem install bundler rails pg foreman thin --no-rdoc --no-ri
+
+echo 'Adding Alias for PairMeup'
+  echo "alias pairme='. ~/pair_me_up.sh'" >> ~/.bash_profile
+
+echo 'Cloning Corndog'
+  successfully mkdir ~/Projects
+  successfully cd ~/Projects
+  successfully git clone https://github.com/CDEI/Corndog.git
+  successfully cd Corndog
+  successfully bundle install && cd
+
+echo 'Cloning cde-etl'
+  successfully cd ~/Projects
+  successfully git clone https://github.com/CDEI/cde-etl.git
+  successfully cd cde-etl
+  successfully bundle install && cd
+
+echo 'Your pairing environment should be configured. Launching PairMeUp! (You need to source .bash_profile)'
+   curl -s https://raw.github.com/esparkman/PairMeUp/master/pair_me_up.sh -o ~/pair_me_up.sh
+   source ~/.bash_profile
+
