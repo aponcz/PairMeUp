@@ -5,7 +5,10 @@ Install
 
 Run the script:
 
-    bash < <(curl -s https://raw.github.com/esparkman/PairMeUp/master/SetMeUp.sh)
+    test -f /tmp/setup && rm /tmp/setup
+    curl -s https://raw.github.com/CDEI/PairMeUp/master/setup -o /tmp/setup
+    chmod 0700 /tmp/setup
+    . /tmp/setup
 
 Remote Pairing script and essential files
 
