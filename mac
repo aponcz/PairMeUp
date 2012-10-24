@@ -55,7 +55,7 @@ echo "Setting MySQL to start at boot"
 echo "Installing RVM (Ruby Version Manager) and Ruby 1.9.3, which becomes the default ..."
   curl -L https://get.rvm.io | bash -s latest-1.16 --auto
   source ~/.bash_profile
-  command rvm install ruby -j 3
+  command rvm install 1.9.3 --patch falcon --force-autoconf -j 3
   command rvm reload
 
 echo "Installing Postgres, a good open source relational database ..."
